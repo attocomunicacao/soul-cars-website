@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Soul Cars — Carros com alma
 
-## Getting Started
+Site da loja de veículos **Soul Cars** (soulcars.com.br), com vitrine de estoque, página por veículo com botão de WhatsApp, mapa da loja e painel administrativo interno.
 
-First, run the development server:
+📄 [Apresentação comercial](docs/apresentacao-comercial.md)
 
+## Stack
+Next.js · TypeScript · Tailwind CSS · Supabase (banco, auth e storage) · Vercel
+
+## Rodar localmente
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+Sem Supabase configurado, o site exibe 3 veículos de demonstração.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Configurar o Supabase
+1. Crie um projeto em supabase.com.
+2. No SQL Editor, execute [`supabase/schema.sql`](supabase/schema.sql).
+3. Em Authentication, crie o usuário administrador (e-mail e senha) e desative o cadastro público.
+4. Copie `.env.example` para `.env.local` e preencha `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+5. Acesse `/admin` para cadastrar veículos.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy
+Importe o repositório na Vercel, defina as mesmas variáveis de ambiente e aponte o domínio `soulcars.com.br` (DNS no Registro.br).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Estrutura
+- `src/app` — páginas (`/`, `/estoque`, `/veiculo/[id]`, `/admin`)
+- `src/lib` — configuração da loja, cliente Supabase e consulta de veículos
+- `supabase/schema.sql` — tabelas, políticas de segurança (RLS) e bucket de fotos
